@@ -1,8 +1,11 @@
-import { type NextRequest } from 'next/server'
+import { NextResponse, type NextRequest } from 'next/server'
 import { updateSession } from './lib/supabase/middleware'
 
 export async function middleware(request: NextRequest) {
-    return await updateSession(request)
+    // TEMPORARY FIX: Disabled Supabase Auth refresh in Middleware to avoid Netlify Edge Runtime errors.
+    // This means sessions might not auto-refresh on the server, but the site will build and run.
+    // return await updateSession(request)
+    return NextResponse.next();
 }
 
 export const config = {
