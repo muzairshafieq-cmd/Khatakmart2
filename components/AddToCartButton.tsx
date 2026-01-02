@@ -12,18 +12,26 @@ export default function AddToCartButton({ product }: { product: any }) {
                 alert('Added to cart!');
             }}
             style={{
-                width: '100%',
-                padding: '0.75rem',
+                padding: '0.5rem 1rem',
                 background: 'var(--primary)',
                 color: 'white',
                 border: 'none',
-                borderRadius: '4px',
+                borderRadius: '99px',
                 fontWeight: 'bold',
                 cursor: 'pointer',
-                fontSize: '1rem'
+                fontSize: '0.9rem',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '0.25rem',
+                minWidth: '80px',
+                justifyContent: 'center',
+                boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
+                transition: 'transform 0.1s'
             }}
+            onMouseDown={(e) => e.currentTarget.style.transform = 'scale(0.95)'}
+            onMouseUp={(e) => e.currentTarget.style.transform = 'scale(1)'}
         >
-            Add to Cart
+            Add +
         </button>
     );
 }

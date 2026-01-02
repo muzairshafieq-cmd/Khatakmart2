@@ -10,7 +10,10 @@ export async function createProduct(formData: FormData) {
 
     // Auth Check
     const { data: { user } } = await supabase.auth.getUser();
+    console.log('Create Product Action - User:', user?.id);
+
     if (!user) {
+        console.log('Unauthorized access attempt');
         return { error: 'Unauthorized' };
     }
 
@@ -20,8 +23,6 @@ export async function createProduct(formData: FormData) {
     const price = parseFloat(formData.get('price') as string);
     const stock = parseInt(formData.get('stock') as string);
     const category_name = formData.get('category_name') as string;
-    const manufacturing_date = formData.get('manufacturing_date') as string;
-    const expiry_date = formData.get('expiry_date') as string;
     const imageFile = formData.get('image') as File;
 
     let image_url = null;
@@ -29,18 +30,20 @@ export async function createProduct(formData: FormData) {
     // Handle Image Upload
     if (imageFile && imageFile.size > 0) {
         const fileExt = imageFile.name.split('.').pop();
-        const fileName = `${Date.now()}.${fileExt}`;
-        const filePath = `products/${fileName}`; // Ensure folder structure support if needed, or just filename
+        const fileName = `${Date.now()}_${Math.random().toString(36).substr(2, 9)}.${fileExt}`;
 
-        // Use adminClient for storage upload to ensure permission if RLS is tricky (though we set policies)
+        // Use adminClient for storage upload
         const { error: uploadError } = await adminClient
             .storage
             .from('product-images')
-            .upload(fileName, imageFile);
+            .upload(fileName, imageFile, {
+                contentType: imageFile.type,
+                upsert: false
+            });
 
         if (uploadError) {
             console.error('Upload Error:', uploadError);
-            return { error: 'Image upload failed' };
+            return { error: `Image upload failed: ${uploadError.message}` };
         }
 
         // Get Public URL
@@ -61,15 +64,14 @@ export async function createProduct(formData: FormData) {
             price,
             stock,
             category_name,
-            manufacturing_date: manufacturing_date || null,
-            expiry_date: expiry_date || null,
             image_url,
-            is_active: true
+            is_active: true,
+            is_featured: formData.get('is_featured') === 'on'
         });
 
     if (insertError) {
         console.error('Insert Error:', insertError);
-        return { error: 'Failed to create product' };
+        return { error: `Failed to create product: ${insertError.message}` };
     }
 
     revalidatePath('/admin/products');

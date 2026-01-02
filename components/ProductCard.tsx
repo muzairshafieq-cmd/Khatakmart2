@@ -1,4 +1,6 @@
+import Link from 'next/link';
 import Image from 'next/image';
+import AddToCartButton from './AddToCartButton';
 
 interface Product {
     id: string;
@@ -6,79 +8,115 @@ interface Product {
     price: number;
     image_url: string | null;
     stock: number;
+    category: string;
+    unit: string;
 }
 
 export default function ProductCard({ product }: { product: Product }) {
     return (
         <div style={{
             background: 'white',
-            border: '1px solid var(--border)',
-            borderRadius: '8px',
+            border: '1px solid #f3f4f6',
+            borderRadius: '16px',
             overflow: 'hidden',
-            transition: 'box-shadow 0.2s',
+            transition: 'transform 0.2s, box-shadow 0.2s',
             display: 'flex',
-            flexDirection: 'column'
+            flexDirection: 'column',
+            position: 'relative',
+            boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.05)'
         }}>
-            <div style={{ position: 'relative', height: '200px', width: '100%', background: '#f3f4f6' }}>
-                {product.image_url ? (
-                    <Image
-                        src={product.image_url}
-                        alt={product.name}
-                        fill
-                        style={{ objectFit: 'cover' }}
-                    />
+            <Link href={`/products/${product.id}`} style={{ display: 'block', position: 'relative', paddingTop: '75%' /* 4:3 Aspect Ratio */ }}>
+                <Image
+                    src={product.image_url || '/placeholder.png'}
+                    alt={product.name}
+                    fill
+                    style={{ objectFit: 'cover' }}
+                />
+                {product.stock <= 0 ? (
+                    <div style={{
+                        position: 'absolute',
+                        top: '10px',
+                        right: '10px',
+                        background: '#ef4444',
+                        color: 'white',
+                        padding: '0.25rem 0.75rem',
+                        borderRadius: '99px',
+                        fontSize: '0.75rem',
+                        fontWeight: 'bold',
+                        boxShadow: '0 2px 4px rgba(0,0,0,0.1)'
+                    }}>
+                        Out of Stock
+                    </div>
+                ) : product.stock <= 5 ? (
+                    <div style={{
+                        position: 'absolute',
+                        top: '10px',
+                        right: '10px',
+                        background: '#f59e0b',
+                        color: 'white',
+                        padding: '0.25rem 0.75rem',
+                        borderRadius: '99px',
+                        fontSize: '0.75rem',
+                        fontWeight: 'bold',
+                        boxShadow: '0 2px 4px rgba(0,0,0,0.1)'
+                    }}>
+                        Low Stock: {product.stock}
+                    </div>
                 ) : (
                     <div style={{
-                        height: '100%',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        color: '#9ca3af'
+                        position: 'absolute',
+                        top: '10px',
+                        right: '10px',
+                        background: '#10b981',
+                        color: 'white',
+                        padding: '0.25rem 0.75rem',
+                        borderRadius: '99px',
+                        fontSize: '0.75rem',
+                        fontWeight: 'bold',
+                        boxShadow: '0 2px 4px rgba(0,0,0,0.1)'
                     }}>
-                        No Image
+                        In Stock ({product.stock})
                     </div>
                 )}
-            </div>
+            </Link>
 
-            <div style={{ padding: '1rem', flex: 1, display: 'flex', flexDirection: 'column' }}>
-                <h3 style={{ fontWeight: 'bold', fontSize: '1.1rem', marginBottom: '0.5rem' }}>{product.name}</h3>
-                <p style={{ color: 'var(--primary)', fontWeight: 'bold', fontSize: '1.2rem', marginBottom: '1rem' }}>
-                    PKR {product.price}
-                </p>
+            <div style={{ padding: '1.25rem', flex: 1, display: 'flex', flexDirection: 'column' }}>
+                <div style={{
+                    fontSize: '0.75rem',
+                    color: '#059669',
+                    fontWeight: 'bold',
+                    textTransform: 'uppercase',
+                    marginBottom: '0.5rem',
+                    letterSpacing: '0.05em'
+                }}>
+                    {product.category || 'Grocery'}
+                </div>
 
-                <div style={{ marginTop: 'auto' }}>
-                    {product.stock > 0 ? (
-                        <button
-                            style={{
-                                width: '100%',
-                                padding: '0.75rem',
-                                background: 'var(--primary)',
-                                color: 'white',
-                                border: 'none',
-                                borderRadius: '4px',
-                                fontWeight: 'bold',
-                                cursor: 'pointer'
-                            }}
-                        >
-                            Add to Cart
-                        </button>
-                    ) : (
-                        <button
-                            disabled
-                            style={{
-                                width: '100%',
-                                padding: '0.75rem',
-                                background: '#e5e7eb',
-                                color: '#9ca3af',
-                                border: 'none',
-                                borderRadius: '4px',
-                                fontWeight: 'bold',
-                                cursor: 'not-allowed'
-                            }}
-                        >
-                            Out of Stock
-                        </button>
-                    )}
+                <Link href={`/products/${product.id}`} style={{
+                    fontSize: '1.125rem',
+                    fontWeight: 'bold',
+                    color: '#111827',
+                    marginBottom: '0.5rem',
+                    textDecoration: 'none',
+                    flex: 1
+                }}>
+                    {product.name}
+                </Link>
+
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginTop: '1rem' }}>
+                    <div style={{ display: 'flex', flexDirection: 'column' }}>
+                        <span style={{ fontSize: '1.25rem', fontWeight: 'bold', color: '#111827' }}>
+                            PKR {product.price}
+                        </span>
+                        <span style={{ fontSize: '0.875rem', color: '#6b7280' }}>
+                            per {product.unit || 'unit'}
+                        </span>
+                        <span style={{ fontSize: '0.8rem', color: product.stock > 0 ? '#059669' : '#dc2626', fontWeight: '500', marginTop: '0.25rem' }}>
+                            {product.stock > 0 ? `${product.stock} items left` : 'Unavailable'}
+                        </span>
+                    </div>
+
+                    <AddToCartButton product={product} />
                 </div>
             </div>
         </div>

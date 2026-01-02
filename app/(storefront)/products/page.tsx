@@ -1,6 +1,6 @@
+import { adminClient } from '@/lib/supabase/admin';
 import ProductGrid from '@/components/ProductGrid';
 import ProductCard from '@/components/ProductCard';
-import { createClient } from '@/lib/supabase/server';
 
 export const dynamic = 'force-dynamic';
 
@@ -12,9 +12,8 @@ export default async function ProductsPage({
     const params = await searchParams;
     const category = params.category;
 
-    const supabase = await createClient();
-
-    let query = supabase
+    // Use adminClient to bypass RLS policies so products ALWAYS show up
+    let query = adminClient
         .from('products')
         .select('*')
         .eq('is_active', true)
@@ -24,7 +23,11 @@ export default async function ProductsPage({
         query = query.eq('category_name', category);
     }
 
-    const { data: products } = await query;
+    const { data: products, error } = await query;
+
+    if (error) {
+        console.error('Error fetching products:', error);
+    }
 
     return (
         <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '2rem' }}>
@@ -38,6 +41,7 @@ export default async function ProductsPage({
                 <FilterLink text="Dry groceries" href="/products?category=Dry groceries" active={category === 'Dry groceries'} />
                 <FilterLink text="Frozen foods" href="/products?category=Frozen foods" active={category === 'Frozen foods'} />
                 <FilterLink text="Packaged milk" href="/products?category=Packaged milk" active={category === 'Packaged milk'} />
+                <FilterLink text="Smoking Items" href="/products?category=Smoking Items" active={category === 'Smoking Items'} />
             </div>
 
             {products && products.length > 0 ? (

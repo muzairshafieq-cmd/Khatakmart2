@@ -23,41 +23,127 @@ export default function AdminLoginPage() {
     }
 
     return (
-        <div className="min-h-screen flex items-center justify-center bg-gray-100">
-            <div className="bg-white p-8 rounded shadow-md w-full max-w-md">
-                <h1 className="text-2xl font-bold mb-6 text-center">Admin Login</h1>
+        <div style={{
+            minHeight: '100vh',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            background: 'url("https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&q=80&w=2574&ixlib=rb-4.0.3") center/cover no-repeat', // Grocery background
+            padding: '1rem',
+            position: 'relative'
+        }}>
+            {/* Dark Overlay */}
+            <div style={{ position: 'absolute', inset: 0, background: 'rgba(0,0,0,0.6)', backdropFilter: 'blur(8px)' }} />
+
+            <div style={{
+                position: 'relative',
+                background: 'rgba(255, 255, 255, 0.95)',
+                padding: '3rem 2.5rem',
+                borderRadius: '24px',
+                boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)',
+                width: '100%',
+                maxWidth: '420px',
+                border: '1px solid rgba(255,255,255,0.2)'
+            }}>
+                <div style={{ marginBottom: '2.5rem', textAlign: 'center' }}>
+                    <div style={{
+                        width: '64px',
+                        height: '64px',
+                        background: '#059669',
+                        borderRadius: '16px',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        margin: '0 auto 1.5rem auto',
+                        fontSize: '2rem',
+                        boxShadow: '0 10px 15px -3px rgba(5, 150, 105, 0.3)'
+                    }}>
+                        🛍️
+                    </div>
+                    <h1 style={{ fontSize: '2rem', fontWeight: '800', color: '#111827', letterSpacing: '-0.025em' }}>Khattak MART</h1>
+                    <p style={{ color: '#6b7280', marginTop: '0.5rem', fontSize: '1rem' }}>Admin Dashboard Access</p>
+                </div>
 
                 {error && (
-                    <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
-                        {error}
+                    <div style={{
+                        background: '#fef2f2',
+                        borderLeft: '4px solid #ef4444',
+                        color: '#991b1b',
+                        padding: '1rem',
+                        marginBottom: '2rem',
+                        fontSize: '0.875rem',
+                        borderRadius: '4px'
+                    }}>
+                        ⚠️ {error}
                     </div>
                 )}
 
-                <form action={handleSubmit} className="space-y-4">
+                <form action={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
                     <div>
-                        <label className="block text-sm font-medium mb-1">Email</label>
+                        <label style={{ display: 'block', fontSize: '0.875rem', fontWeight: '600', color: '#374151', marginBottom: '0.5rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Email Address</label>
                         <input
                             name="email"
                             type="email"
                             required
-                            className="w-full p-2 border rounded"
+                            style={{
+                                width: '100%',
+                                padding: '1rem',
+                                border: '2px solid #e5e7eb',
+                                borderRadius: '12px',
+                                outline: 'none',
+                                transition: 'all 0.2s',
+                                fontSize: '1rem',
+                                background: '#f9fafb'
+                            }}
+                            onFocus={(e) => { e.target.style.borderColor = '#059669'; e.target.style.background = 'white'; }}
+                            onBlur={(e) => { e.target.style.borderColor = '#e5e7eb'; e.target.style.background = '#f9fafb'; }}
+                            placeholder="admin@khattakmart.com"
                         />
                     </div>
                     <div>
-                        <label className="block text-sm font-medium mb-1">Password</label>
+                        <label style={{ display: 'block', fontSize: '0.875rem', fontWeight: '600', color: '#374151', marginBottom: '0.5rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Password</label>
                         <input
                             name="password"
                             type="password"
                             required
-                            className="w-full p-2 border rounded"
+                            style={{
+                                width: '100%',
+                                padding: '1rem',
+                                border: '2px solid #e5e7eb',
+                                borderRadius: '12px',
+                                outline: 'none',
+                                transition: 'all 0.2s',
+                                fontSize: '1rem',
+                                background: '#f9fafb'
+                            }}
+                            onFocus={(e) => { e.target.style.borderColor = '#059669'; e.target.style.background = 'white'; }}
+                            onBlur={(e) => { e.target.style.borderColor = '#e5e7eb'; e.target.style.background = '#f9fafb'; }}
+                            placeholder="••••••••"
                         />
                     </div>
                     <button
                         type="submit"
                         disabled={loading}
-                        className="w-full bg-green-600 text-white p-2 rounded hover:bg-green-700 disabled:opacity-50"
+                        style={{
+                            width: '100%',
+                            background: 'linear-gradient(to right, #059669, #047857)',
+                            color: 'white',
+                            padding: '1rem',
+                            borderRadius: '12px',
+                            border: 'none',
+                            fontWeight: '700',
+                            fontSize: '1.1rem',
+                            cursor: loading ? 'not-allowed' : 'pointer',
+                            opacity: loading ? 0.8 : 1,
+                            marginTop: '1rem',
+                            boxShadow: '0 4px 6px -1px rgba(5, 150, 105, 0.2)',
+                            transform: loading ? 'none' : 'translateY(0)',
+                            transition: 'transform 0.1s, box-shadow 0.1s'
+                        }}
+                        onMouseDown={(e) => !loading && (e.currentTarget.style.transform = 'translateY(2px)')}
+                        onMouseUp={(e) => !loading && (e.currentTarget.style.transform = 'translateY(0)')}
                     >
-                        {loading ? 'Logging in...' : 'Login'}
+                        {loading ? 'Authenticating...' : 'Sign In to Dashboard →'}
                     </button>
                 </form>
             </div>

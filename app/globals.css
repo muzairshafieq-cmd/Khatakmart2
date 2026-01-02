@@ -2,31 +2,36 @@
   --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
-  
-  --foreground-rgb: 0, 0, 0;
-  --background-rgb: 255, 255, 255;
-  
-  /* Brand Colors */
-  --primary: #059669; /* Emerald 600 */
-  --primary-foreground: #ffffff;
-  --secondary: #f3f4f6; /* Gray 100 */
-  --accent: #f59e0b; /* Amber 500 */
-  
-  /* UI Colors */
-  --border: #e5e7eb;
-  --input: #e5e7eb;
-  --ring: #059669;
-}
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-rgb: 10, 10, 10;
-    
-    --secondary: #1f2937;
-    --border: #374151;
-    --input: #374151;
-  }
+  /* Brand Colors - Premium Emerald & Gold */
+  --primary: #047857;
+  /* Emerald 700 */
+  --primary-light: #10b981;
+  /* Emerald 500 */
+  --primary-dark: #064e3b;
+  /* Emerald 900 */
+
+  --accent: #f59e0b;
+  /* Amber 500 */
+  --accent-light: #fbbf24;
+  /* Amber 400 */
+
+  /* Neutrals */
+  --foreground: #1e293b;
+  /* Slate 800 */
+  --secondary: #f8fafc;
+  /* Slate 50 */
+  --muted: #64748b;
+  /* Slate 500 */
+  --border: #e2e8f0;
+  /* Slate 200 */
+
+  /* Effects */
+  --radius: 12px;
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
 }
 
 * {
@@ -43,8 +48,9 @@ body {
 }
 
 body {
-  color: rgb(var(--foreground-rgb));
-  background: rgb(var(--background-rgb));
+  color: var(--foreground);
+  background: white;
+  /* Clean white background */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -52,4 +58,42 @@ body {
 a {
   color: inherit;
   text-decoration: none;
+}
+
+/* Utilities */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.text-gradient {
+  background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.glass {
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.section-title {
+  font-size: 2rem;
+  font-weight: 800;
+  color: var(--primary-dark);
+  margin-bottom: 2rem;
+  text-align: center;
+  position: relative;
+}
+
+.section-title::after {
+  content: '';
+  display: block;
+  width: 60px;
+  height: 4px;
+  background: var(--accent);
+  margin: 0.5rem auto 0;
+  border-radius: 2px;
 }

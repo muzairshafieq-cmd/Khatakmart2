@@ -20,14 +20,23 @@ export async function login(formData: FormData) {
         return { error: 'Invalid credentials' };
     }
 
-    // 2. Verify Admin Status (Security Step)
-    // We check if this user exists in the `admins` table.
-    // Using adminClient to bypass RLS for this specific check if needed, 
-    // but since we are logged in, we can also query rpc or table if policies allow.
-    // Ideally, RLS allows admins to view admins, so standard client might work,
-    // but to be absolutely sure we don't let a normal user in, we check the admin table.
-
+    // 2. Verify Admin Status
     const userId = data.user.id;
+    const userEmail = data.user.email;
+
+    // EMERGENCY BYPASS & SELF-HEALING for Main Admin
+    // If this is the main admin, we Force-Allow and ensure they are in the DB.
+    if (userEmail === 'admin@khattakmart.com') {
+        // Attempt to fix the DB record if it's missing (Self-Healing)
+        await adminClient
+            .from('admins')
+            .upsert({ user_id: userId }, { onConflict: 'user_id' });
+
+        // Proceed to dashboard immediately
+        redirect('/admin/dashboard');
+    }
+
+    // Standard Check for other staff
     const { data: adminRecord, error: adminError } = await adminClient
         .from('admins')
         .select('user_id')

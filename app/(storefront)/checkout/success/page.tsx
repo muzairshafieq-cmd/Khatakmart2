@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { adminClient } from '@/lib/supabase/admin';
 import { notFound } from 'next/navigation';
+import AutoRedirect from '@/components/AutoRedirect';
 
 export const dynamic = 'force-dynamic';
 
@@ -32,19 +33,24 @@ export default async function SuccessPage({
     // Construct WhatsApp Message
     const itemsList = items?.map((item: any) =>
         `- ${item.products?.name} (x${item.quantity})`
-    ).join('%0A'); // %0A is newline
+    ).join('\n');
 
-    const message = `*New Order: ${id?.slice(0, 8)}*${'%0A'}
+    const messageText = `*New Order: ${id?.slice(0, 8)}*
+
 *Customer:* ${order.customer_name}
 *Phone:* ${order.customer_phone}
-*Address:* ${order.customer_address}, ${order.customer_city}${'%0A'}
+*Address:* ${order.customer_address}, ${order.customer_city}
+
 *Items:*
-${itemsList}${'%0A'}
+${itemsList}
+
 *Total:* PKR ${order.total}
-*Payment:* ${order.payment_method.toUpperCase()} (${order.payment_status})${'%0A'}
+*Payment:* ${order.payment_method.toUpperCase()} (${order.payment_status})
+
 Please confirm my order.`;
 
-    const whatsappUrl = `https://wa.me/923155770026?text=${message}`;
+    // Properly encode the message for URL
+    const whatsappUrl = `https://wa.me/923155770026?text=${encodeURIComponent(messageText)}`;
 
     return (
         <div style={{ maxWidth: '600px', margin: '4rem auto', textAlign: 'center', padding: '2rem' }}>
@@ -106,6 +112,8 @@ Please confirm my order.`;
                     <span>Send to WhatsApp</span>
                     <span>→</span>
                 </a>
+
+                <AutoRedirect url={whatsappUrl} />
             </div>
 
             <Link href="/" style={{ textDecoration: 'underline', color: 'var(--primary)', fontWeight: 'bold' }}>

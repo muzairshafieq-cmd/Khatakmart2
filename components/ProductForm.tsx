@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { createProduct } from '@/app/admin/products/actions';
+import { createProduct } from '@/app/admin/(protected)/products/actions';
 
 export default function ProductForm() {
     const [loading, setLoading] = useState(false);
@@ -10,15 +10,22 @@ export default function ProductForm() {
     const CATEGORIES = [
         'Dry groceries',
         'Frozen foods',
-        'Packaged milk'
+        'Packaged milk',
+        'Smoking Items'
     ];
 
     async function handleSubmit(formData: FormData) {
+        console.log('Form submitting...');
         setLoading(true);
-        // We rely on the server action redirect
-        const result = await createProduct(formData);
-        if (result?.error) {
-            alert(result.error);
+        try {
+            const result = await createProduct(formData);
+            console.log('Result:', result);
+            if (result?.error) {
+                alert(result.error);
+                setLoading(false);
+            }
+        } catch (e) {
+            console.error('Submission error:', e);
             setLoading(false);
         }
     }
@@ -62,17 +69,20 @@ export default function ProductForm() {
                 </div>
             </div>
 
-            {/* Dates */}
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
-                <div>
-                    <label style={{ display: 'block', marginBottom: '0.5rem' }}>Manufacturing Date</label>
-                    <input name="manufacturing_date" type="date" style={inputStyle} />
-                </div>
-                <div>
-                    <label style={{ display: 'block', marginBottom: '0.5rem' }}>Expiry Date</label>
-                    <input name="expiry_date" type="date" style={inputStyle} />
-                </div>
+            {/* Featured Checkbox */}
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', background: '#f8fafc', padding: '0.75rem', borderRadius: '4px', border: '1px solid #e2e8f0' }}>
+                <input
+                    type="checkbox"
+                    name="is_featured"
+                    id="is_featured"
+                    style={{ width: '1.25rem', height: '1.25rem', cursor: 'pointer' }}
+                />
+                <label htmlFor="is_featured" style={{ cursor: 'pointer', fontWeight: 'bold', color: '#334155' }}>
+                    Mark as Featured Product
+                </label>
             </div>
+
+
 
             {/* Image */}
             <div>
