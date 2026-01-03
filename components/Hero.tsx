@@ -62,19 +62,14 @@ export default function Hero() {
             </div>
 
             {/* Image Side */}
-            <div style={{
+            <div className="hero-image" style={{
                 position: 'relative',
                 minHeight: '400px',
                 backgroundImage: 'url(/hero-grocery.png)',
                 backgroundSize: 'cover',
                 backgroundPosition: 'center',
-                // clipPath removed for better mobile stacking, or handled via CSS if needed
             }}>
-                <div style={{
-                    position: 'absolute',
-                    inset: 0,
-                    background: 'linear-gradient(to right, rgba(220, 252, 231, 0.8), transparent 50%)'
-                }}></div>
+                <div></div>
             </div>
         </section>
     );

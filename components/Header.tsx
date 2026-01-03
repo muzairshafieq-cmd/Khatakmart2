@@ -77,17 +77,29 @@ export default function Header() {
                 </nav>
             </div>
 
-            {/* Mobile Dropdown */}
+            {/* Mobile Drawer */}
             {isMenuOpen && (
-                <div className="mobile-nav-dropdown">
-                    <Link href="/" className="mobile-nav-link" onClick={() => setIsMenuOpen(false)}>
-                        Home
-                    </Link>
-                    <Link href="/products" className="mobile-nav-link" onClick={() => setIsMenuOpen(false)}>
-                        All Products
-                    </Link>
-                    {/* Add other links if needed */}
-                </div>
+                <>
+                    <div className="drawer-backdrop" onClick={() => setIsMenuOpen(false)} />
+                    <div className="mobile-drawer">
+                        <div className="drawer-header">
+                            <span style={{ fontSize: '1.25rem', fontWeight: 'bold', color: '#064e3b' }}>Menu</span>
+                            <button onClick={() => setIsMenuOpen(false)} style={{ background: 'none', border: 'none', cursor: 'pointer' }}>
+                                ✕
+                            </button>
+                        </div>
+
+                        <Link href="/" className="drawer-link" onClick={() => setIsMenuOpen(false)}>
+                            Home <span>→</span>
+                        </Link>
+                        <Link href="/products" className="drawer-link" onClick={() => setIsMenuOpen(false)}>
+                            All Products <span>→</span>
+                        </Link>
+                        <Link href="/cart" className="drawer-link" onClick={() => setIsMenuOpen(false)}>
+                            My Cart ({count}) <span>→</span>
+                        </Link>
+                    </div>
+                </>
             )}
         </header>
     );
