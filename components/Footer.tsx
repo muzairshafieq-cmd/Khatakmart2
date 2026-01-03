@@ -19,7 +19,7 @@ export default function Footer() {
                 {/* Brand Column */}
                 <div>
                     <h3 style={{
-                        fontSize: '1.5rem',
+                        fontSize: '2.5rem',
                         fontWeight: '800',
                         marginBottom: '1rem',
                         color: 'white',

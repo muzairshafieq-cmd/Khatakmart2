@@ -35,9 +35,9 @@ export default function Header() {
         }}>
             <div className="header-container" style={{ padding: '0 1rem' }}>
                 <Link href="/" style={{ display: 'flex', alignItems: 'center', textDecoration: 'none' }}>
-                    <div style={{ position: 'relative', width: '180px', height: '60px' }}>
+                    <div style={{ position: 'relative', width: '220px', height: '75px' }}>
                         <Image
-                            src="/logo.png?v=6"
+                            src="/logo.png?v=7"
                             alt="Sk Khattak Mart"
                             fill
                             style={{
