@@ -10,6 +10,7 @@ export default function Header() {
     const { items } = useCart();
     const [mounted, setMounted] = useState(false);
     const [scrolled, setScrolled] = useState(false);
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
 
     useEffect(() => {
         setMounted(true);
@@ -22,29 +23,25 @@ export default function Header() {
 
     return (
         <header style={{
-            background: scrolled ? 'rgba(255, 255, 255, 0.95)' : 'white',
+            background: scrolled || isMenuOpen ? 'white' : 'rgba(255, 255, 255, 0.95)', // Solid background when menu open
             backdropFilter: 'blur(10px)',
-            borderBottom: scrolled ? '1px solid #e5e7eb' : '1px solid transparent',
-            padding: '1rem 0', // Reduced vertical padding, horizontal handled by container
+            borderBottom: scrolled || isMenuOpen ? '1px solid #e5e7eb' : '1px solid transparent',
+            padding: '1rem 0',
             position: 'sticky',
             top: 0,
             zIndex: 100,
             transition: 'all 0.3s ease',
-            boxShadow: scrolled ? '0 4px 6px -1px rgba(0, 0, 0, 0.05)' : 'none'
+            boxShadow: scrolled || isMenuOpen ? '0 4px 6px -1px rgba(0, 0, 0, 0.05)' : 'none'
         }}>
-            <div className="header-container" style={{ padding: '0 1rem' }}> {/* Ensure internal padding matches global container */}
-                <Link href="/" style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', textDecoration: 'none' }}>
-                    <div style={{ position: 'relative', width: '40px', height: '40px' }}>
+            <div className="header-container" style={{ padding: '0 1rem' }}>
+                <Link href="/" style={{ display: 'flex', alignItems: 'center', textDecoration: 'none' }}>
+                    <div style={{ position: 'relative', width: '70px', height: '70px' }}>
                         <Image src="/logo.png?v=2" alt="Khattak MART" fill style={{ objectFit: 'contain' }} />
-                    </div>
-                    <div style={{ display: 'flex', flexDirection: 'column' }}>
-                        <span style={{ fontSize: '1.25rem', fontWeight: '800', color: '#111827', lineHeight: 1 }}>Khattak</span>
-                        <span style={{ fontSize: '0.8rem', fontWeight: '600', color: '#059669', letterSpacing: '0.15em' }}>MART</span>
                     </div>
                 </Link>
 
-                {/* Desktop Nav */}
-                <nav style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
+                {/* Nav Actions */}
+                <nav style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
                     <Link href="/products" className="hide-on-mobile" style={{
                         textDecoration: 'none',
                         color: '#374151',
@@ -70,10 +67,28 @@ export default function Header() {
                         boxShadow: '0 2px 4px rgba(5, 150, 105, 0.2)'
                     }}>
                         <ShoppingCart size={18} />
-                        <span>{count > 0 ? `${count}` : 'Cart'}</span> {/* Shortened text for mobile */}
+                        <span>{count > 0 ? `${count}` : 'Cart'}</span>
                     </Link>
+
+                    {/* Mobile Menu Button */}
+                    <button className="mobile-menu-btn" onClick={() => setIsMenuOpen(!isMenuOpen)}>
+                        <Menu size={24} />
+                    </button>
                 </nav>
             </div>
+
+            {/* Mobile Dropdown */}
+            {isMenuOpen && (
+                <div className="mobile-nav-dropdown">
+                    <Link href="/" className="mobile-nav-link" onClick={() => setIsMenuOpen(false)}>
+                        Home
+                    </Link>
+                    <Link href="/products" className="mobile-nav-link" onClick={() => setIsMenuOpen(false)}>
+                        All Products
+                    </Link>
+                    {/* Add other links if needed */}
+                </div>
+            )}
         </header>
     );
 }
