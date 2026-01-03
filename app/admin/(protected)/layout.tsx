@@ -40,9 +40,9 @@ export default async function AdminLayout({ children }: { children: ReactNode })
     }
 
     return (
-        <div style={{ display: 'flex', minHeight: '100vh', background: '#f1f5f9' }}>
+        <div className="admin-layout-container">
             <AdminSidebar />
-            <main style={{ flex: 1, padding: '2rem', height: '100vh', overflowY: 'auto' }}>
+            <main className="admin-main-content">
                 <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
                     {children}
                 </div>
