@@ -23,8 +23,8 @@ export default function Header() {
 
     return (
         <header style={{
-            background: scrolled || isMenuOpen ? 'white' : 'rgba(255, 255, 255, 0.95)', // Solid background when menu open
-            backdropFilter: 'blur(10px)',
+            background: scrolled || isMenuOpen ? 'white' : 'rgba(255, 255, 255, 0.95)',
+            backdropFilter: isMenuOpen ? 'none' : 'blur(10px)', // Remove blur when menu open to fix fixed positioning context
             borderBottom: scrolled || isMenuOpen ? '1px solid #e5e7eb' : '1px solid transparent',
             padding: '1rem 0',
             position: 'sticky',
@@ -35,8 +35,17 @@ export default function Header() {
         }}>
             <div className="header-container" style={{ padding: '0 1rem' }}>
                 <Link href="/" style={{ display: 'flex', alignItems: 'center', textDecoration: 'none' }}>
-                    <div style={{ position: 'relative', width: '160px', height: '60px' }}>
-                        <Image src="/logo.png?v=4" alt="Sk Khattak Mart" fill style={{ objectFit: 'contain', objectPosition: 'left' }} />
+                    <div style={{ position: 'relative', width: '180px', height: '60px' }}>
+                        <Image
+                            src="/logo.png?v=6"
+                            alt="Sk Khattak Mart"
+                            fill
+                            style={{
+                                objectFit: 'contain',
+                                objectPosition: 'left',
+                                mixBlendMode: 'multiply'
+                            }}
+                        />
                     </div>
                 </Link>
 

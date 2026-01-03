@@ -235,7 +235,8 @@ a {
 .mobile-drawer {
   position: fixed;
   top: 0;
-  bottom: 0;
+  height: 100dvh;
+  /* Force full height regardless of parent context */
   left: 0;
   width: 85%;
   max-width: 320px;
