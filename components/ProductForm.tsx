@@ -11,7 +11,9 @@ export default function ProductForm() {
         'Dry groceries',
         'Frozen foods',
         'Packaged milk',
-        'Smoking Items'
+        'Smoking Items',
+        'Cosmetics',
+        'Electronics'
     ];
 
     async function handleSubmit(formData: FormData) {

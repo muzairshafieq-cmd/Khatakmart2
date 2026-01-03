@@ -42,6 +42,8 @@ export default async function ProductsPage({
                 <FilterLink text="Frozen foods" href="/products?category=Frozen foods" active={category === 'Frozen foods'} />
                 <FilterLink text="Packaged milk" href="/products?category=Packaged milk" active={category === 'Packaged milk'} />
                 <FilterLink text="Smoking Items" href="/products?category=Smoking Items" active={category === 'Smoking Items'} />
+                <FilterLink text="Cosmetics" href="/products?category=Cosmetics" active={category === 'Cosmetics'} />
+                <FilterLink text="Electronics" href="/products?category=Electronics" active={category === 'Electronics'} />
             </div>
 
             {products && products.length > 0 ? (

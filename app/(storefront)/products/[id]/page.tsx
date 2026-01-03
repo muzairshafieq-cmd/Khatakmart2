@@ -1,20 +1,18 @@
-import { createClient } from '@/lib/supabase/server';
+import { adminClient } from '@/lib/supabase/admin';
 import AddToCartButton from '@/components/AddToCartButton';
 import Image from 'next/image';
 import { notFound } from 'next/navigation';
 
 export async function generateMetadata({ params }: { params: Promise<{ id: string }> }) {
     const { id } = await params;
-    const supabase = await createClient();
-    const { data: product } = await supabase.from('products').select('name').eq('id', id).single();
+    const { data: product } = await adminClient.from('products').select('name').eq('id', id).single();
     return { title: product?.name || 'Product Not Found' };
 }
 
 export default async function ProductPage({ params }: { params: Promise<{ id: string }> }) {
     const { id } = await params;
-    const supabase = await createClient();
 
-    const { data: product } = await supabase
+    const { data: product } = await adminClient
         .from('products')
         .select('*')
         .eq('id', id)
