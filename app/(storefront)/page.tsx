@@ -22,9 +22,9 @@ export default async function Home() {
             </div>
 
             {/* Features Section */}
-            <section style={{ background: '#f0fdf4', padding: '4rem 0', marginBottom: '4rem' }}>
+            <section className="section-responsive" style={{ background: '#f0fdf4' }}>
                 <div className="container">
-                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '2rem' }}>
+                    <div className="features-grid">
                         <FeatureCard
                             icon={<Clock size={32} color="var(--primary)" />}
                             title="30-Min Delivery"

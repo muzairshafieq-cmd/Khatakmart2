@@ -2,26 +2,9 @@ import Link from 'next/link';
 
 export default function Hero() {
     return (
-        <section style={{
-            position: 'relative',
-            marginTop: '2rem',
-            marginBottom: '4rem',
-            borderRadius: '24px',
-            overflow: 'hidden',
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
-            background: 'linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%)', // Soft green gradient
-            boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)',
-            border: '1px solid #bbf7d0'
-        }}>
+        <section className="hero-section">
             {/* Content Side */}
-            <div style={{
-                padding: '4rem 3rem',
-                display: 'flex',
-                flexDirection: 'column',
-                justifyContent: 'center',
-                zIndex: 10
-            }}>
+            <div className="hero-content">
                 <span style={{
                     display: 'inline-block',
                     alignSelf: 'flex-start',
@@ -38,29 +21,16 @@ export default function Hero() {
                     Fastest Delivery in Islamabad
                 </span>
 
-                <h1 style={{
-                    fontSize: '3.5rem',
-                    lineHeight: '1.1',
-                    fontWeight: '900',
-                    color: '#064e3b',
-                    marginBottom: '1.5rem',
-                    letterSpacing: '-0.025em'
-                }}>
+                <h1 className="hero-title">
                     Groceries at your <br />
                     <span style={{ color: '#059669', textDecoration: 'underline', textDecorationColor: '#86efac' }}>Doorstep</span>
                 </h1>
 
-                <p style={{
-                    fontSize: '1.25rem',
-                    lineHeight: '1.6',
-                    color: '#374151',
-                    marginBottom: '2.5rem',
-                    maxWidth: '500px'
-                }}>
+                <p className="hero-desc">
                     Khattak MART brings DHA Phase 2's freshest produce and daily essentials directly to you. Order now for <span style={{ fontWeight: 'bold' }}>30-minute delivery</span>.
                 </p>
 
-                <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
+                <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap', justifyContent: 'center' }}>
                     <Link href="/products" style={{
                         background: '#059669',
                         color: 'white',
@@ -98,12 +68,12 @@ export default function Hero() {
                 backgroundImage: 'url(/hero-grocery.png)',
                 backgroundSize: 'cover',
                 backgroundPosition: 'center',
-                clipPath: 'polygon(10% 0, 100% 0, 100% 100%, 0% 100%)' // Angled cut
+                // clipPath removed for better mobile stacking, or handled via CSS if needed
             }}>
                 <div style={{
                     position: 'absolute',
                     inset: 0,
-                    background: 'linear-gradient(to right, rgba(220, 252, 231, 0.8), transparent 50%)' // Fade in from left
+                    background: 'linear-gradient(to right, rgba(220, 252, 231, 0.8), transparent 50%)'
                 }}></div>
             </div>
         </section>
