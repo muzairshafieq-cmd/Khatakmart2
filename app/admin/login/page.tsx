@@ -60,7 +60,7 @@ export default function AdminLoginPage() {
                     }}>
                         🛍️
                     </div>
-                    <h1 style={{ fontSize: '2rem', fontWeight: '800', color: '#111827', letterSpacing: '-0.025em' }}>Khattak MART</h1>
+                    <h1 style={{ fontSize: '1.5rem', fontWeight: 'bold', marginBottom: '0.5rem', color: '#111827' }}>Sk Khattak Mart</h1>
                     <p style={{ color: '#6b7280', marginTop: '0.5rem', fontSize: '1rem' }}>Admin Dashboard Access</p>
                 </div>
 

@@ -25,7 +25,7 @@ export default function Footer() {
                         color: 'white',
                         letterSpacing: '-0.025em'
                     }}>
-                        Khattak <span style={{ color: 'var(--primary-light)' }}>MART</span>
+                        Sk Khattak <span style={{ color: 'var(--primary-light)' }}>Mart</span>
                     </h3>
                     <p style={{ color: '#94a3b8', lineHeight: '1.6', maxWidth: '300px' }}>
                         Premium grocery delivery service in Islamabad.
