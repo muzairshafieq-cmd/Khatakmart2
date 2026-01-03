@@ -34,13 +34,9 @@ export default function Header() {
             boxShadow: scrolled || isMenuOpen ? '0 4px 6px -1px rgba(0, 0, 0, 0.05)' : 'none'
         }}>
             <div className="header-container" style={{ padding: '0 1rem' }}>
-                <Link href="/" style={{ display: 'flex', alignItems: 'center', textDecoration: 'none', gap: '0.5rem' }}>
-                    <div style={{ position: 'relative', width: '60px', height: '60px' }}>
-                        <Image src="/logo.png?v=3" alt="Sk Khattak Mart" fill style={{ objectFit: 'contain' }} />
-                    </div>
-                    <div style={{ display: 'flex', flexDirection: 'column' }}>
-                        <span style={{ fontSize: '1.25rem', fontWeight: '800', color: '#111827', lineHeight: 1.1 }}>Sk Khattak</span>
-                        <span style={{ fontSize: '1.25rem', fontWeight: '800', color: '#059669', lineHeight: 1.1 }}>Mart</span>
+                <Link href="/" style={{ display: 'flex', alignItems: 'center', textDecoration: 'none' }}>
+                    <div style={{ position: 'relative', width: '160px', height: '60px' }}>
+                        <Image src="/logo.png?v=4" alt="Sk Khattak Mart" fill style={{ objectFit: 'contain', objectPosition: 'left' }} />
                     </div>
                 </Link>
 
